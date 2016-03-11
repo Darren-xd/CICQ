@@ -19,7 +19,7 @@
     [self createLeftImage];
 }
 
-#pragma mack 私有方法创建左边头像
+#pragma mark 私有方法创建左边头像
 -(void)createLeftImage{
     UIImage *image                          = [UIImage imageNamed:@"head.png"];
     UIImageView *handView                   = [[UIImageView alloc]initWithImage:image];
@@ -27,7 +27,6 @@
     handView.layer.masksToBounds            = YES;
     handView.layer.cornerRadius             = 20;
     handView.backgroundColor                = [UIColor redColor];
-    
     UIBarButtonItem *barButton              = [[UIBarButtonItem alloc]initWithCustomView:handView];
     self.navigationItem.leftBarButtonItem   = barButton;
 }

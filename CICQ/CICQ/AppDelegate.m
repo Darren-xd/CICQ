@@ -18,8 +18,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
     self.window.rootViewController = [[BaseTabBarViewController alloc]init];
+    
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(nextTimer) userInfo:nil repeats:YES];
     return YES;
+}
+
+-(void)nextTimer{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"HelloNotification" object:@"hello"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

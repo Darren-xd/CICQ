@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface MassagesViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+@interface MassagesViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
 
 @end
