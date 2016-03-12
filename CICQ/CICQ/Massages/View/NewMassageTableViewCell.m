@@ -7,6 +7,7 @@
 //
 
 #import "NewMassageTableViewCell.h"
+#import "NewMassageModel.h"
 
 @implementation NewMassageTableViewCell
 
@@ -17,9 +18,12 @@
 }
 
 
--(void)setData:(NSString *)head
+-(void)setData:(NewMassageModel *)chatModel
 {
-    _headImageView.image = [UIImage imageNamed:head];
+    _userNameLabel.text = chatModel.userName;
+    _massageLabel.text = chatModel.content;
+    _timeLabel.text = chatModel.time;
+    _headImageView.image = [UIImage imageNamed:chatModel.head];
 }
 
 

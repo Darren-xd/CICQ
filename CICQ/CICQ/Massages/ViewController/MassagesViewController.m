@@ -11,6 +11,8 @@
 #import "PhoneTableViewCell.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "ChatMassageService.h"
+#import "NewMassageModel.h"
+#import "CICQUserGroupModel.h"
 
 
 #define SOUNDID  1109
@@ -24,10 +26,12 @@
     UISegmentedControl *segmentedView;
     NSMutableArray *chatData;
     NSMutableArray *phoneData;
-    NSMutableArray *searchData;
+    NSMutableArray *filterData;
+//    UISearchController *searchController;
     
 }
 
+@property(nonatomic,strong)UISearchController *searchController;
 
 @end
 
@@ -39,16 +43,23 @@
     
     chatData = [[NSMutableArray alloc]init];
     phoneData = [[NSMutableArray alloc]init];
-    searchData = [[NSMutableArray alloc]init];
+    filterData = [[NSMutableArray alloc]init];
     
-    [chatData addObject:@"1.jpg"];
-    [chatData addObject:@"2.jpg"];
-    [chatData addObject:@"3.jpg"];
-    
-    
-    [phoneData addObject:@"222"];
-    [phoneData addObject:@"222"];
-    
+    for (int i=1; i<=10; i++) {
+        NewMassageModel *msgModel = [[NewMassageModel alloc]init];
+        msgModel.head = [NSString stringWithFormat:@"%d.jpg",i];
+        msgModel.userName = [NSString stringWithFormat:@"abc我滴老家%d",i];
+        msgModel.content = [NSString stringWithFormat:@"%d我的家在东北松花江上，么么哒",i];
+        msgModel.time = @"20:00";
+        [chatData addObject:msgModel];
+        
+        NewMassageModel *phoneModel = [[NewMassageModel alloc]init];
+        phoneModel.head = [NSString stringWithFormat:@"%d.jpg",i];
+        phoneModel.userName = [NSString stringWithFormat:@"efg%d",i];
+        phoneModel.content = [NSString stringWithFormat:@"%d山上的山花开呀，我才到山上来，原来你也是上山才到山上来",i];
+        phoneModel.time = @"8:00";
+        [phoneData addObject:phoneModel];
+    }
     
     msgTableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
     msgTableView.delegate = self;
@@ -57,10 +68,12 @@
     [msgTableView registerNib:[UINib nibWithNibName:@"NewMassageTableViewCell" bundle:nil] forCellReuseIdentifier:MYCHATCELL];
     [self.view addSubview:msgTableView];
     
-    UISearchController *searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
-    searchController.delegate = self;
-    searchController.searchResultsUpdater = self;
-    msgTableView.tableHeaderView = searchController.searchBar;
+    _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+    _searchController.delegate = self;
+    _searchController.dimsBackgroundDuringPresentation = false;
+    [_searchController.searchBar sizeToFit];
+    _searchController.searchResultsUpdater = self;
+    msgTableView.tableHeaderView = _searchController.searchBar;
     
     NSArray *titles = [NSArray arrayWithObjects:@"消息",@"电话", nil];
     segmentedView = [[UISegmentedControl alloc]initWithItems:titles];
@@ -84,10 +97,27 @@
     [msgTableView reloadData];
 }
 
-
+#pragma mark searchController 代理方法
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     
+    NSString *searchString = searchController.searchBar.text;
+    
+    NSPredicate *preicate = [NSPredicate predicateWithFormat:@"userName contains[c] %@", searchString];
+    
+    if (filterData != nil) {
+        [filterData removeAllObjects];
+    }
+    
+    if (segmentedView.selectedSegmentIndex == 0)
+    {
+        filterData = [NSMutableArray arrayWithArray:[chatData filteredArrayUsingPredicate:preicate]];
+    }else
+    {
+        filterData = [NSMutableArray arrayWithArray:[phoneData filteredArrayUsingPredicate:preicate]];
+    }
+    
+    [msgTableView reloadData];
 }
 
 
@@ -100,11 +130,6 @@
 #pragma mark 右上角加号按钮处理事件
 -(void)onClickAddHander{
     [[NSNotificationCenter defaultCenter]postNotificationName:@"HelloNotification" object:@"hello"];
-    [ChatMassageService getUserFriends:^(id obj){
-        NSLog(@"请求会拉啦");
-    }failed:^(id obj) {
-        NSLog(@"请求失败");
-    }];
 }
 
 
@@ -112,17 +137,30 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewMassageTableViewCell *chatCell = [tableView dequeueReusableCellWithIdentifier:MYCHATCELL];
-    [chatCell setData:chatData[indexPath.row]];
     chatCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (_searchController.active) {
+        [chatCell setData:filterData[indexPath.row]];
+    }else{
+        if (segmentedView.selectedSegmentIndex == 0) {
+            [chatCell setData:chatData[indexPath.row]];
+        }else{
+            [chatCell setData:phoneData[indexPath.row]];
+        }
+    }
     return chatCell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(segmentedView.selectedSegmentIndex == 0){
-        return chatData.count;
+    //如果搜索为激活状态则显示过滤数据条数
+    if (_searchController.active) {
+        return filterData.count;
     }else{
-        return phoneData.count;
+        if(segmentedView.selectedSegmentIndex == 0){
+            return chatData.count;
+        }else{
+            return phoneData.count;
+        }
     }
     return 0;
 }
@@ -137,6 +175,12 @@
 {
     
 }
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    NSLog(@"11111");
+//    [self searchBarCancelButtonClicked:self.searchController.searchBar];
+//}
 
 
 @end
