@@ -26,8 +26,19 @@
 -(void)setData:(CICQAuthor *)author
 {
     [_haedImage sd_setImageWithURL:[NSURL URLWithString:author.avatar] placeholderImage:[UIImage imageNamed:@"defaultHead"]];
-    _contextLable.text = author.intro;
+//    _contextLable.text = author.intro;
     _userNameLabel.text = author.nickname;
+    NSString *s = author.followStatus ? @"在线":@"离线请留言";
+    NSString *msg = [NSString stringWithFormat:@"[%@] %@",s,author.intro];
+    _contextLable.text = msg;
+    
+    if (author.network) {
+        self.netWordLabel.text = author.network;
+    }else{
+        self.netWordLabel.text = @"";
+    }
+    
+    
 }
 
 @end

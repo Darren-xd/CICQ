@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *haedImage;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contextLable;
+@property (weak, nonatomic) IBOutlet UILabel *netWordLabel;
 
 -(void)setData:(CICQAuthor *)author;
 

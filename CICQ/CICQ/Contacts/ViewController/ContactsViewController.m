@@ -11,9 +11,10 @@
 #import "CICQUserGroupModel.h"
 #import "ContactsTableViewCell.h"
 #import "ContactsHeaderTableViewCell.h"
+#import "MJRefresh.h"
+#import "DBHelp.h"
 
-
-@interface ContactsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating,CICQContactsHeadTableViewCellDetegate>
+@interface ContactsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,CICQContactsHeadTableViewCellDetegate>
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *contactsData;
@@ -34,53 +35,75 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initViewFrame];
+    //模拟从服务器端拉去变更数据
+    [self fefreshContactsData];
+}
+
+
+-(void)initViewFrame{
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"联系人";
     NSLog(@"init contasts");
-    
     _contactsData = [[NSMutableArray alloc]init];
-    
-    _tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.sectionHeaderHeight = 30;
-    
+    _tableView.sectionHeaderHeight = 50;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"ContactsTableViewCell" bundle:nil] forCellReuseIdentifier:@"myCellID"];
-    [_tableView registerNib:[UINib nibWithNibName:HEND_CELL_NIB bundle:nil] forHeaderFooterViewReuseIdentifier:HEAD_CELL_IDENTIFIER];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeander)];
     
     _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     _searchController.delegate = self;
     _searchController.dimsBackgroundDuringPresentation = false;
     [_searchController.searchBar sizeToFit];
-    _searchController.searchResultsUpdater = self;
     _tableView.tableHeaderView = _searchController.searchBar;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onClickAddHander)];
-    
     [self.view addSubview:_tableView];
-    [self onClickAddHander];
+}
+
+-(void)refreshHeander
+{
+    [self fefreshContactsData];
+    [_tableView.mj_header endRefreshing];
 }
 
 -(void)onClickAddHander{
+//    [self fefreshContactsData];
+}
+
+
+-(void)fefreshContactsData{
     [ChatMassageService getUserFriends:^(id obj){
         [_contactsData removeAllObjects];
         NSDictionary* dictData = obj;
         for (NSDictionary *dic in dictData) {
             CICQUserGroupModel *model = [[CICQUserGroupModel alloc]initWithDictionary:dic];
+            
+            
+            
+            
+
+            
+            
             [_contactsData addObject:model];
         }
         [_tableView reloadData];
-        
     }failed:^(id obj) {
         NSLog(@"请求失败");
     }];
-
 }
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     ContactsHeaderTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HEAD_CELL_IDENTIFIER];
+    if (cell == nil) {
+        cell = [[ContactsHeaderTableViewCell alloc]initWithReuseIdentifier:HEAD_CELL_IDENTIFIER];
+    }
     cell.detegate = self;
     [cell setData:_contactsData[section]];
     cell.tag = section;
@@ -116,12 +139,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60;
 }
-
--(void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-    
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

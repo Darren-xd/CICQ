@@ -13,6 +13,7 @@
 #import "ChatMassageService.h"
 #import "NewMassageModel.h"
 #import "CICQUserGroupModel.h"
+#import "MJRefresh.h"
 
 
 #define SOUNDID  1109
@@ -65,6 +66,8 @@
     msgTableView.delegate = self;
     msgTableView.dataSource = self;
     msgTableView.backgroundColor = [UIColor clearColor];
+    msgTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeader)];
+    msgTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooter)];
     [msgTableView registerNib:[UINib nibWithNibName:@"NewMassageTableViewCell" bundle:nil] forCellReuseIdentifier:MYCHATCELL];
     [self.view addSubview:msgTableView];
     
@@ -91,6 +94,19 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(newMassage:) name:@"HelloNotification" object:nil];
 }
+
+-(void)refreshHeader
+{
+    [msgTableView.mj_header endRefreshing];
+}
+
+-(void)refreshFooter
+{
+    [msgTableView.mj_footer endRefreshing];
+//    [msgTableView.mj_footer noticeNoMoreData];
+}
+
+
 #pragma mark 用户选择标签，切换数据源
 -(void)onClickSegmentedControl:(UISegmentedControl *)segmented
 {
@@ -100,9 +116,7 @@
 #pragma mark searchController 代理方法
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    
     NSString *searchString = searchController.searchBar.text;
-    
     NSPredicate *preicate = [NSPredicate predicateWithFormat:@"userName contains[c] %@", searchString];
     
     if (filterData != nil) {
@@ -116,7 +130,6 @@
     {
         filterData = [NSMutableArray arrayWithArray:[phoneData filteredArrayUsingPredicate:preicate]];
     }
-    
     [msgTableView reloadData];
 }
 
@@ -129,6 +142,7 @@
 
 #pragma mark 右上角加号按钮处理事件
 -(void)onClickAddHander{
+
     [[NSNotificationCenter defaultCenter]postNotificationName:@"HelloNotification" object:@"hello"];
 }
 
@@ -175,6 +189,7 @@
 {
     
 }
+
 
 //-(void)viewWillAppear:(BOOL)animated
 //{

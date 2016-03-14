@@ -20,6 +20,7 @@
     // Override point for customization after application launch.
     
     
+    
     self.window.rootViewController = [[BaseTabBarViewController alloc]init];
     
 //    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(nextTimer) userInfo:nil repeats:YES];

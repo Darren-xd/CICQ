@@ -21,31 +21,31 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3s-lQ-v5y">
                         <rect key="frame" x="78" y="8" width="193" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wi5-mi-v0j">
                         <rect key="frame" x="78" y="34" width="201" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3G" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IC5-aG-XUP">
                         <rect key="frame" x="279" y="8" width="33" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="topMargin" secondItem="IC5-aG-XUP" secondAttribute="top" id="0Gx-sY-hQS"/>
                     <constraint firstAttribute="trailingMargin" secondItem="IC5-aG-XUP" secondAttribute="trailing" id="NVp-89-cLc"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="IC5-aG-XUP" secondAttribute="bottom" constant="22.5" id="Y11-hI-c5k"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="contextLable" destination="Wi5-mi-v0j" id="Dgn-h5-KmU"/>
                 <outlet property="haedImage" destination="bRk-f9-N6r" id="Xf2-Cf-vUk"/>
+                <outlet property="netWordLabel" destination="IC5-aG-XUP" id="yB2-HU-W3J"/>
                 <outlet property="userNameLabel" destination="W3s-lQ-v5y" id="sVF-ZH-HMi"/>
             </connections>
         </tableViewCell>

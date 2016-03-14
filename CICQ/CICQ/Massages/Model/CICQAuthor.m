@@ -13,16 +13,11 @@ NSString *const kCICQAuthorIntro = @"intro";
 NSString *const kCICQAuthorNickname = @"nickname";
 NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 
+
 @interface CICQAuthor ()
 @end
 @implementation CICQAuthor
 
-
-
-
-/**
- * Instantiate the instance using the passed dictionary values to set the properties values
- */
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -31,7 +26,8 @@ NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 		self.avatar = dictionary[kCICQAuthorAvatar];
 	}	
 	if(![dictionary[kCICQAuthorFollowStatus] isKindOfClass:[NSNull class]]){
-		self.followStatus = [dictionary[kCICQAuthorFollowStatus] boolValue];
+        float f = (arc4random() % 5);
+        self.followStatus = (f < 2) ? YES:NO;
 	}
 
 	if(![dictionary[kCICQAuthorIdField] isKindOfClass:[NSNull class]]){
@@ -45,14 +41,18 @@ NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 	}	
 	if(![dictionary[kCICQAuthorSubscriptionNum] isKindOfClass:[NSNull class]]){
 		self.subscriptionNum = dictionary[kCICQAuthorSubscriptionNum];
-	}	
+	}
+    if (self.followStatus) {
+        if ((arc4random() % 3)>1) {
+            self.network = [NSString stringWithFormat:@"3G"];
+        }else{
+            self.network = [NSString stringWithFormat:@"Wi-Fi"];
+        }
+    }
+    
 	return self;
 }
 
-
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
@@ -76,12 +76,6 @@ NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 
 }
 
-/**
- * Implementation of NSCoding encoding method
- */
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	if(self.avatar != nil){
@@ -102,9 +96,6 @@ NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 
 }
 
-/**
- * Implementation of NSCoding initWithCoder: method
- */
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
@@ -118,9 +109,6 @@ NSString *const kCICQAuthorSubscriptionNum = @"subscriptionNum";
 
 }
 
-/**
- * Implementation of NSCopying copyWithZone: method
- */
 - (instancetype)copyWithZone:(NSZone *)zone
 {
 	CICQAuthor *copy = [CICQAuthor new];

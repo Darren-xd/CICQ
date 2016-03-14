@@ -15,12 +15,6 @@ NSString *const kCICQUserModelCategory = @"category";
 @implementation CICQUserGroupModel
 
 
-
-
-/**
- * Instantiate the instance using the passed dictionary values to set the properties values
- */
-
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
@@ -31,6 +25,22 @@ NSString *const kCICQUserModelCategory = @"category";
 			CICQAuthor * authorsItem = [[CICQAuthor alloc] initWithDictionary:authorsDictionary];
 			[authorsItems addObject:authorsItem];
 		}
+        
+        //            (void)bubbleSort:(NSMutableArray *)array{
+        //                int i, y; BOOL bFinish = YES;
+        //                for (i = 1; i<= [array count] && bFinish; i++) {
+        //                    bFinish = NO;
+        //                    for (y = (int)[array count]-1; y>=i; y--) {
+        //                        if ([[array objectAtIndex:y] intValue] < [[array objectAtIndex:y-1] intValue]) {
+        //                            [array exchangeObjectAtIndex:y-1 withObjectAtIndex:y];
+        //                            bFinish = YES;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        
+        [self sort:authorsItems];
+        
 		self.authors = authorsItems;
 	}
 	if(![dictionary[kCICQUserModelCategory] isKindOfClass:[NSNull class]]){
@@ -39,11 +49,29 @@ NSString *const kCICQUserModelCategory = @"category";
 
 	return self;
 }
+#pragma mark 冒泡排序
+-(void)sort:(NSMutableArray *)array
+{
+    int i;
+    int y;
+    BOOL bFinish = YES;
+    CICQAuthor *a;
+    CICQAuthor *b;
+    for (i = 1; i<= [array count] && bFinish; i++) {
+        bFinish = NO;
+        for (y = (int)[array count]-1; y>=i; y--) {
+            a = array[y];
+            b = array[y-1];
+            if (a.followStatus > b.followStatus) {
+                [array exchangeObjectAtIndex:y-1 withObjectAtIndex:y];
+                bFinish = YES;
+            }
+        }
+    }
+    
+}
 
 
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
@@ -61,12 +89,6 @@ NSString *const kCICQUserModelCategory = @"category";
 
 }
 
-/**
- * Implementation of NSCoding encoding method
- */
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	if(self.authors != nil){
@@ -78,9 +100,6 @@ NSString *const kCICQUserModelCategory = @"category";
 
 }
 
-/**
- * Implementation of NSCoding initWithCoder: method
- */
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
@@ -90,9 +109,6 @@ NSString *const kCICQUserModelCategory = @"category";
 
 }
 
-/**
- * Implementation of NSCopying copyWithZone: method
- */
 - (instancetype)copyWithZone:(NSZone *)zone
 {
 	CICQUserGroupModel *copy = [CICQUserGroupModel new];

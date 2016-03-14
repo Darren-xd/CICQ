@@ -19,10 +19,9 @@
 @end
 
 @interface ContactsHeaderTableViewCell : UITableViewHeaderFooterView
-@property (weak, nonatomic) IBOutlet UILabel *groupNameLable;
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-@property (weak, nonatomic) IBOutlet UIButton *arrowButton;
-@property (nonatomic,strong)CICQUserGroupModel *userModel;
+@property(nonatomic,strong)UILabel *groupNameLable;
+@property(nonatomic,strong)UIButton *arrowButton;
+@property(nonatomic,strong)CICQUserGroupModel *userModel;
 
 @property(nonatomic,strong)id<CICQContactsHeadTableViewCellDetegate>detegate;
 

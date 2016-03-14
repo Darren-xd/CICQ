@@ -8,6 +8,7 @@
 @property (nonatomic, strong) NSString * intro;
 @property (nonatomic, strong) NSString * nickname;
 @property (nonatomic, strong) NSString * subscriptionNum;
+@property (nonatomic, strong) NSString * network;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

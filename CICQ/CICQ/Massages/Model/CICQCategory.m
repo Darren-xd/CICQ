@@ -15,11 +15,6 @@ NSString *const kCICQCategoryIdField = @"id";
 
 
 
-
-/**
- * Instantiate the instance using the passed dictionary values to set the properties values
- */
-
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
@@ -33,9 +28,6 @@ NSString *const kCICQCategoryIdField = @"id";
 }
 
 
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 -(NSDictionary *)toDictionary
 {
 	NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
@@ -49,12 +41,6 @@ NSString *const kCICQCategoryIdField = @"id";
 
 }
 
-/**
- * Implementation of NSCoding encoding method
- */
-/**
- * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
- */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	if(self.categoryName != nil){
@@ -66,9 +52,6 @@ NSString *const kCICQCategoryIdField = @"id";
 
 }
 
-/**
- * Implementation of NSCoding initWithCoder: method
- */
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
@@ -79,9 +62,6 @@ NSString *const kCICQCategoryIdField = @"id";
 }
 
 
-/**
- * Implementation of NSCopying copyWithZone: method
- */
 - (instancetype)copyWithZone:(NSZone *)zone
 {
 	CICQCategory *copy = [CICQCategory new];
