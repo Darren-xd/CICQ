@@ -10,9 +10,11 @@
 
 @interface NewMassageModel : NSObject
 
+@property(nonatomic,assign)int userId;
 @property(nonatomic,copy)NSString *userName;
 @property(nonatomic,copy)NSString *content;
 @property(nonatomic,copy)NSString *time;
 @property(nonatomic,copy)NSString *head;
+@property(nonatomic,assign)int msgCount;
 
 @end

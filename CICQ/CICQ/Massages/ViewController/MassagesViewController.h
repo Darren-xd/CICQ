@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+#define UPDATE_MASSAGE_COUNT @"UpdateMassageCountNotification"
+
 @interface MassagesViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
 
 @end

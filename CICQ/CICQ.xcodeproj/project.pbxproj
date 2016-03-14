@@ -43,6 +43,9 @@
 		9B6BCCB01C95329100A53707 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6BCCAF1C95329100A53707 /* libsqlite3.dylib */; };
 		9B6BCD2B1C969F3200A53707 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B6BCD291C969F3200A53707 /* Main.storyboard */; };
 		9B6BCD2F1C96AC2D00A53707 /* DBHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6BCD2E1C96AC2D00A53707 /* DBHelp.m */; };
+		9B6BCD361C97053F00A53707 /* CICQAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6BCD311C97053F00A53707 /* CICQAuthor.m */; };
+		9B6BCD371C97053F00A53707 /* CICQCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6BCD331C97053F00A53707 /* CICQCategory.m */; };
+		9B6BCD381C97053F00A53707 /* CICQUserGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6BCD351C97053F00A53707 /* CICQUserGroupModel.m */; };
 		9B963CEB1C905E2200A39A5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B963CEA1C905E2200A39A5F /* main.m */; };
 		9B963CEE1C905E2200A39A5F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B963CED1C905E2200A39A5F /* AppDelegate.m */; };
 		9B963CF61C905E2200A39A5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B963CF51C905E2200A39A5F /* Assets.xcassets */; };
@@ -74,9 +77,6 @@
 		9BB7047A1C928CBC0000DD07 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7046F1C928CBC0000DD07 /* AFURLRequestSerialization.m */; };
 		9BB7047B1C928CBC0000DD07 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704711C928CBC0000DD07 /* AFURLResponseSerialization.m */; };
 		9BB7047C1C928CBC0000DD07 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704731C928CBC0000DD07 /* AFURLSessionManager.m */; };
-		9BB704831C93B1410000DD07 /* CICQAuthor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7047E1C93B1410000DD07 /* CICQAuthor.m */; };
-		9BB704841C93B1410000DD07 /* CICQCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704801C93B1410000DD07 /* CICQCategory.m */; };
-		9BB704851C93B1410000DD07 /* CICQUserGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704821C93B1410000DD07 /* CICQUserGroupModel.m */; };
 		9BB704891C93D18C0000DD07 /* ContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704871C93D18C0000DD07 /* ContactsTableViewCell.m */; };
 		9BB7048A1C93D18C0000DD07 /* ContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB704881C93D18C0000DD07 /* ContactsTableViewCell.xib */; };
 		9BB7048E1C93E0EF0000DD07 /* ContactsHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB7048C1C93E0EF0000DD07 /* ContactsHeaderTableViewCell.m */; };
@@ -185,6 +185,12 @@
 		9B6BCD2A1C969F3200A53707 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B6BCD2D1C96AC2D00A53707 /* DBHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelp.h; sourceTree = "<group>"; };
 		9B6BCD2E1C96AC2D00A53707 /* DBHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelp.m; sourceTree = "<group>"; };
+		9B6BCD301C97053F00A53707 /* CICQAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQAuthor.h; sourceTree = "<group>"; };
+		9B6BCD311C97053F00A53707 /* CICQAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQAuthor.m; sourceTree = "<group>"; };
+		9B6BCD321C97053F00A53707 /* CICQCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQCategory.h; sourceTree = "<group>"; };
+		9B6BCD331C97053F00A53707 /* CICQCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQCategory.m; sourceTree = "<group>"; };
+		9B6BCD341C97053F00A53707 /* CICQUserGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQUserGroupModel.h; sourceTree = "<group>"; };
+		9B6BCD351C97053F00A53707 /* CICQUserGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQUserGroupModel.m; sourceTree = "<group>"; };
 		9B963CE61C905E2200A39A5F /* CICQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CICQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B963CEA1C905E2200A39A5F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9B963CEC1C905E2200A39A5F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -238,12 +244,6 @@
 		9BB704711C928CBC0000DD07 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		9BB704721C928CBC0000DD07 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		9BB704731C928CBC0000DD07 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		9BB7047D1C93B1410000DD07 /* CICQAuthor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQAuthor.h; sourceTree = "<group>"; };
-		9BB7047E1C93B1410000DD07 /* CICQAuthor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQAuthor.m; sourceTree = "<group>"; };
-		9BB7047F1C93B1410000DD07 /* CICQCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQCategory.h; sourceTree = "<group>"; };
-		9BB704801C93B1410000DD07 /* CICQCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQCategory.m; sourceTree = "<group>"; };
-		9BB704811C93B1410000DD07 /* CICQUserGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CICQUserGroupModel.h; sourceTree = "<group>"; };
-		9BB704821C93B1410000DD07 /* CICQUserGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CICQUserGroupModel.m; sourceTree = "<group>"; };
 		9BB704861C93D18C0000DD07 /* ContactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsTableViewCell.h; sourceTree = "<group>"; };
 		9BB704871C93D18C0000DD07 /* ContactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableViewCell.m; sourceTree = "<group>"; };
 		9BB704881C93D18C0000DD07 /* ContactsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactsTableViewCell.xib; sourceTree = "<group>"; };
@@ -555,6 +555,12 @@
 		9B963D2A1C90607000A39A5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9B6BCD301C97053F00A53707 /* CICQAuthor.h */,
+				9B6BCD311C97053F00A53707 /* CICQAuthor.m */,
+				9B6BCD321C97053F00A53707 /* CICQCategory.h */,
+				9B6BCD331C97053F00A53707 /* CICQCategory.m */,
+				9B6BCD341C97053F00A53707 /* CICQUserGroupModel.h */,
+				9B6BCD351C97053F00A53707 /* CICQUserGroupModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -626,12 +632,6 @@
 		9B963D361C90607000A39A5F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9BB7047D1C93B1410000DD07 /* CICQAuthor.h */,
-				9BB7047E1C93B1410000DD07 /* CICQAuthor.m */,
-				9BB7047F1C93B1410000DD07 /* CICQCategory.h */,
-				9BB704801C93B1410000DD07 /* CICQCategory.m */,
-				9BB704811C93B1410000DD07 /* CICQUserGroupModel.h */,
-				9BB704821C93B1410000DD07 /* CICQUserGroupModel.m */,
 				9B19AF091C91654800056763 /* NewMassageModel.h */,
 				9B19AF0A1C91654800056763 /* NewMassageModel.m */,
 			);
@@ -908,7 +908,6 @@
 				9B963D461C9060F500A39A5F /* DynamicViewController.m in Sources */,
 				9B19AF041C91239000056763 /* BaseService.m in Sources */,
 				9B6BCCAA1C95326B00A53707 /* FMDatabaseAdditions.m in Sources */,
-				9BB704851C93B1410000DD07 /* CICQUserGroupModel.m in Sources */,
 				9BB704F61C94230A0000DD07 /* UIView+WebCacheOperation.m in Sources */,
 				9BB704751C928CBC0000DD07 /* AFHTTPRequestOperationManager.m in Sources */,
 				9B6BCC9A1C95324D00A53707 /* UIScrollView+MJRefresh.m in Sources */,
@@ -929,9 +928,9 @@
 				9BB704ED1C94230A0000DD07 /* SDWebImageDownloaderOperation.m in Sources */,
 				9B6BCC911C95324D00A53707 /* MJRefreshBackGifFooter.m in Sources */,
 				9BB704891C93D18C0000DD07 /* ContactsTableViewCell.m in Sources */,
+				9B6BCD361C97053F00A53707 /* CICQAuthor.m in Sources */,
 				9BB704EC1C94230A0000DD07 /* SDWebImageDownloader.m in Sources */,
 				9BB704E81C94230A0000DD07 /* NSData+ImageContentType.m in Sources */,
-				9BB704841C93B1410000DD07 /* CICQCategory.m in Sources */,
 				9B6BCCAD1C95326B00A53707 /* FMResultSet.m in Sources */,
 				9B6BCCAC1C95326B00A53707 /* FMDatabaseQueue.m in Sources */,
 				9BB7047A1C928CBC0000DD07 /* AFURLRequestSerialization.m in Sources */,
@@ -946,6 +945,7 @@
 				9BB704EE1C94230A0000DD07 /* SDWebImageManager.m in Sources */,
 				9B963CEE1C905E2200A39A5F /* AppDelegate.m in Sources */,
 				9BB704781C928CBC0000DD07 /* AFSecurityPolicy.m in Sources */,
+				9B6BCD371C97053F00A53707 /* CICQCategory.m in Sources */,
 				9B19AF0B1C91654800056763 /* NewMassageModel.m in Sources */,
 				9BB704771C928CBC0000DD07 /* AFNetworkReachabilityManager.m in Sources */,
 				9BB704E71C94230A0000DD07 /* MKAnnotationView+WebCache.m in Sources */,
@@ -965,9 +965,9 @@
 				9B19AF061C91239000056763 /* BaseViewController.m in Sources */,
 				9B19AEFD1C91233C00056763 /* ChatMassageService.m in Sources */,
 				9B6BCC8D1C95324D00A53707 /* MJRefreshHeader.m in Sources */,
-				9BB704831C93B1410000DD07 /* CICQAuthor.m in Sources */,
 				9BB7047B1C928CBC0000DD07 /* AFURLResponseSerialization.m in Sources */,
 				9B963CEB1C905E2200A39A5F /* main.m in Sources */,
+				9B6BCD381C97053F00A53707 /* CICQUserGroupModel.m in Sources */,
 				9B6BCC8C1C95324D00A53707 /* MJRefreshFooter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

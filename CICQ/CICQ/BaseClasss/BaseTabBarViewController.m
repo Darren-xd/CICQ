@@ -13,6 +13,10 @@
 
 @interface BaseTabBarViewController ()
 
+@property(nonatomic,strong)UINavigationController *massagesNavigation;
+@property(nonatomic,strong)UINavigationController *contactsNavigation;
+@property(nonatomic,strong)UINavigationController *dynamicNavigation;
+
 @end
 
 @implementation BaseTabBarViewController
@@ -24,16 +28,29 @@
     ContactsViewController *contactsView        = [[ContactsViewController alloc]init];
     DynamicViewController *dynamicView          = [[DynamicViewController alloc]init];
     
-    UINavigationController *massagesNavigation  = [[UINavigationController alloc]initWithRootViewController:massagesView];
-    UINavigationController *contactsNavigation  = [[UINavigationController alloc]initWithRootViewController:contactsView];
-    UINavigationController *dynamicNavigation   = [[UINavigationController alloc]initWithRootViewController:dynamicView];
+    _massagesNavigation  = [[UINavigationController alloc]initWithRootViewController:massagesView];
+    _contactsNavigation  = [[UINavigationController alloc]initWithRootViewController:contactsView];
+    _dynamicNavigation   = [[UINavigationController alloc]initWithRootViewController:dynamicView];
     
-    contactsNavigation.title                    = @"联系人";
-    massagesNavigation.title                    = @"消息";
-    dynamicNavigation.title                     = @"动态";
+    _contactsNavigation.title                    = @"联系人";
+    _massagesNavigation.title                    = @"消息";
+    _dynamicNavigation.title                     = @"动态";
     
-    self.viewControllers = @[massagesNavigation,contactsNavigation,dynamicNavigation];
+    
+    
+
+    
+    self.viewControllers = @[_massagesNavigation,_contactsNavigation,_dynamicNavigation];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateMassageCount:) name:UPDATE_MASSAGE_COUNT object:nil];
 }
+
+#pragma mark 更新消息数量
+-(void)updateMassageCount:(NSNotification*)notification{
+    NSString *count = (NSString *)notification.object;
+        _massagesNavigation.tabBarItem.badgeValue = count;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -18,6 +18,10 @@
 
 #define SOUNDID  1109
 #define MYCHATCELL @"myNewCell"
+#define NIB_NAME @"NewMassageTableViewCell"
+#define TITLE @"消息"
+#define MASSAGE @"消息"
+#define PHONE @"电话"
 #define SWIDTH self.view.frome.size.width;
 #define SHEIGHT self.view.frome.size.height;
 
@@ -51,13 +55,14 @@
         msgModel.head = [NSString stringWithFormat:@"%d.jpg",i];
         msgModel.userName = [NSString stringWithFormat:@"abc我滴老家%d",i];
         msgModel.content = [NSString stringWithFormat:@"%d我的家在东北松花江上，么么哒",i];
+        msgModel.msgCount = 2;
         msgModel.time = @"20:00";
         [chatData addObject:msgModel];
         
         NewMassageModel *phoneModel = [[NewMassageModel alloc]init];
         phoneModel.head = [NSString stringWithFormat:@"%d.jpg",i];
-        phoneModel.userName = [NSString stringWithFormat:@"efg%d",i];
-        phoneModel.content = [NSString stringWithFormat:@"%d山上的山花开呀，我才到山上来，原来你也是上山才到山上来",i];
+        phoneModel.userName = [NSString stringWithFormat:@"谷子%d",i];
+        phoneModel.content = [NSString stringWithFormat:@"☎️ 16-03-14"];
         phoneModel.time = @"8:00";
         [phoneData addObject:phoneModel];
     }
@@ -68,7 +73,7 @@
     msgTableView.backgroundColor = [UIColor clearColor];
     msgTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeader)];
     msgTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooter)];
-    [msgTableView registerNib:[UINib nibWithNibName:@"NewMassageTableViewCell" bundle:nil] forCellReuseIdentifier:MYCHATCELL];
+    [msgTableView registerNib:[UINib nibWithNibName:NIB_NAME bundle:nil] forCellReuseIdentifier:MYCHATCELL];
     [self.view addSubview:msgTableView];
     
     _searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
@@ -78,7 +83,7 @@
     _searchController.searchResultsUpdater = self;
     msgTableView.tableHeaderView = _searchController.searchBar;
     
-    NSArray *titles = [NSArray arrayWithObjects:@"消息",@"电话", nil];
+    NSArray *titles = [NSArray arrayWithObjects:MASSAGE,PHONE, nil];
     segmentedView = [[UISegmentedControl alloc]initWithItems:titles];
     segmentedView.frame = CGRectMake(60, 0, 150, 30);
     segmentedView.selectedSegmentIndex = 0;
@@ -90,10 +95,33 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(onClickAddHander)];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"消息";
+    self.title = TITLE;
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(newMassage:) name:@"HelloNotification" object:nil];
+    [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(addNewMassage) userInfo:nil repeats:YES];
 }
+
+#pragma mark 添加新消息
+-(void)addNewMassage
+{
+//    NSString *nowTime = [NSString stringWithFormat:@"%l",(long)[NSDate timeIntervalSinceReferenceDate]]
+//    time_t *t = time(NULL);
+    
+    
+    //如果消息列表中的数量大于20 则从20个消息中随机继续添加消息数量
+    NewMassageModel *msgModel = [[NewMassageModel alloc]init];
+    msgModel.head = [NSString stringWithFormat:@"%d.jpg",(1+arc4random()%10)];
+    msgModel.userName = [NSString stringWithFormat:@"abc我滴老家"];
+    msgModel.content = [NSString stringWithFormat:@"我的家在东北松花江上，么么哒"];
+    msgModel.msgCount = 12;
+    msgModel.userId = 10000;
+    msgModel.time = @"20:00";
+    
+//    [chatData addObject:msgModel];
+    [chatData insertObject:msgModel atIndex:0];
+    [msgTableView reloadData];
+    [self updateUnreadMessagesNumber];
+}
+
 
 -(void)refreshHeader
 {
@@ -110,7 +138,27 @@
 #pragma mark 用户选择标签，切换数据源
 -(void)onClickSegmentedControl:(UISegmentedControl *)segmented
 {
+    
     [msgTableView reloadData];
+}
+
+-(void)updateUnreadMessagesNumber
+{
+    NewMassageModel *model;
+    int count = 0;
+    for (int i = 0; i < chatData.count; i++) {
+        model = chatData[i];
+        count += model.msgCount;
+    }
+    NSString *newCount = nil;
+    if (count >= 99) {
+        newCount = @"99+";
+    }else{
+        newCount = [NSString stringWithFormat:@"%d",count];
+    }
+    AudioServicesPlaySystemSound(SOUNDID);
+    [[NSNotificationCenter defaultCenter]postNotificationName:UPDATE_MASSAGE_COUNT object:newCount];
+    
 }
 
 #pragma mark searchController 代理方法
@@ -133,17 +181,10 @@
     [msgTableView reloadData];
 }
 
-
--(void)newMassage:(NSNotification*)notification{
-//    NSLog(notification.object);
-    //真机才有效果
-    AudioServicesPlaySystemSound(SOUNDID);
-}
-
 #pragma mark 右上角加号按钮处理事件
 -(void)onClickAddHander{
 
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"HelloNotification" object:@"hello"];
+    
 }
 
 
@@ -187,7 +228,14 @@
 #pragma mark 选中某个Cell处理函数
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NewMassageModel *model;
+    if (segmentedView.selectedSegmentIndex == 0) {
+        model = chatData[indexPath.row];
+    }else{
+        model = phoneData[indexPath.row];
+    }
     
+    NSLog(@"Click %@ massage",model.userName);
 }
 
 

@@ -82,13 +82,6 @@
         NSDictionary* dictData = obj;
         for (NSDictionary *dic in dictData) {
             CICQUserGroupModel *model = [[CICQUserGroupModel alloc]initWithDictionary:dic];
-            
-            
-            
-            
-
-            
-            
             [_contactsData addObject:model];
         }
         [_tableView reloadData];
