@@ -14,6 +14,7 @@
 #import "NewMassageModel.h"
 #import "CICQUserGroupModel.h"
 #import "MJRefresh.h"
+#import "DBHelp.h"
 
 
 #define SOUNDID  1109
@@ -24,6 +25,8 @@
 #define PHONE @"电话"
 #define SWIDTH self.view.frome.size.width;
 #define SHEIGHT self.view.frome.size.height;
+#define NEW_MASSAGE_TYPE_CHAT 0;
+#define NEW_MASSAGE_TYPE_PHONE 1;
 
 @interface MassagesViewController ()
 {
@@ -50,22 +53,23 @@
     phoneData = [[NSMutableArray alloc]init];
     filterData = [[NSMutableArray alloc]init];
     
-    for (int i=1; i<=10; i++) {
-        NewMassageModel *msgModel = [[NewMassageModel alloc]init];
-        msgModel.head = [NSString stringWithFormat:@"%d.jpg",i];
-        msgModel.userName = [NSString stringWithFormat:@"abc我滴老家%d",i];
-        msgModel.content = [NSString stringWithFormat:@"%d我的家在东北松花江上，么么哒",i];
-        msgModel.msgCount = 2;
-        msgModel.time = @"20:00";
-        [chatData addObject:msgModel];
-        
-        NewMassageModel *phoneModel = [[NewMassageModel alloc]init];
-        phoneModel.head = [NSString stringWithFormat:@"%d.jpg",i];
-        phoneModel.userName = [NSString stringWithFormat:@"谷子%d",i];
-        phoneModel.content = [NSString stringWithFormat:@"☎️ 16-03-14"];
-        phoneModel.time = @"8:00";
-        [phoneData addObject:phoneModel];
-    }
+//    for (int i=1; i<=10; i++) {
+//        NewMassageModel *msgModel = [[NewMassageModel alloc]init];
+//        msgModel.head = [NSString stringWithFormat:@"%d.jpg",i];
+//        msgModel.userName = [NSString stringWithFormat:@"abc我滴老家%d",i];
+//        msgModel.content = [NSString stringWithFormat:@"%d我的家在东北松花江上，么么哒",i];
+//        msgModel.msgCount = 2;
+//        msgModel.time = @"20:00";
+//        [chatData addObject:msgModel];
+//        
+//        NewMassageModel *phoneModel = [[NewMassageModel alloc]init];
+//        phoneModel.head = [NSString stringWithFormat:@"%d.jpg",i];
+//        phoneModel.userName = [NSString stringWithFormat:@"谷子%d",i];
+//        phoneModel.content = [NSString stringWithFormat:@"☎️ 16-03-14"];
+//        phoneModel.time = @"8:00";
+//        [phoneData addObject:phoneModel];
+//    }
+    [self initReadDataBaseList];
     
     msgTableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
     msgTableView.delegate = self;
@@ -97,26 +101,47 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = TITLE;
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(addNewMassage) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(addNewMassage) userInfo:nil repeats:YES];
 }
+
+#pragma mark 加载历史数据
+-(void)initReadDataBaseList
+{
+    FMResultSet *result = [DBHelp selectDataBase:@"select * from massageList"];
+    while ([result next]) {
+        NewMassageModel *model = [[NewMassageModel alloc]init];
+        model.userName = [result stringForColumn:@"user_Name"];
+        model.content = [result stringForColumn:@"content"];
+        model.time = [result stringForColumn:@"time"];
+        model.head = [result stringForColumn:@"head"];
+        model.msgCount = [result intForColumn:@"msg_count"];
+        model.type = [result intForColumn:@"type"];
+        if (model.type == 0) {
+            [chatData addObject:model];
+        }else{
+            [phoneData addObject:model];
+        }
+    }
+    
+    [msgTableView reloadData];
+}
+
 
 #pragma mark 添加新消息
 -(void)addNewMassage
 {
-//    NSString *nowTime = [NSString stringWithFormat:@"%l",(long)[NSDate timeIntervalSinceReferenceDate]]
-//    time_t *t = time(NULL);
-    
-    
     //如果消息列表中的数量大于20 则从20个消息中随机继续添加消息数量
     NewMassageModel *msgModel = [[NewMassageModel alloc]init];
     msgModel.head = [NSString stringWithFormat:@"%d.jpg",(1+arc4random()%10)];
     msgModel.userName = [NSString stringWithFormat:@"abc我滴老家"];
     msgModel.content = [NSString stringWithFormat:@"我的家在东北松花江上，么么哒"];
-    msgModel.msgCount = 12;
+    msgModel.msgCount = 1;
     msgModel.userId = 10000;
     msgModel.time = @"20:00";
+    msgModel.type = NEW_MASSAGE_TYPE_CHAT;
     
-//    [chatData addObject:msgModel];
+    //插入数据库
+    [DBHelp addNewMassageModel:msgModel];
     [chatData insertObject:msgModel atIndex:0];
     [msgTableView reloadData];
     [self updateUnreadMessagesNumber];
@@ -138,7 +163,7 @@
 #pragma mark 用户选择标签，切换数据源
 -(void)onClickSegmentedControl:(UISegmentedControl *)segmented
 {
-    
+    //切换标签的时候重新加载数据源
     [msgTableView reloadData];
 }
 
@@ -182,9 +207,15 @@
 }
 
 #pragma mark 右上角加号按钮处理事件
--(void)onClickAddHander{
-
-    
+-(void)onClickAddHander
+{
+    //删除表数据
+    BOOL bo = [DBHelp insertDataBase:@"delete from massageList"];
+    if (bo) {
+        [chatData removeAllObjects];
+        [phoneData removeAllObjects];
+        [msgTableView reloadData];
+    }
 }
 
 
@@ -237,13 +268,5 @@
     
     NSLog(@"Click %@ massage",model.userName);
 }
-
-
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    NSLog(@"11111");
-//    [self searchBarCancelButtonClicked:self.searchController.searchBar];
-//}
-
 
 @end

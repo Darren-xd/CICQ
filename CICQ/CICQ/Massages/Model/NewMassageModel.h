@@ -16,5 +16,6 @@
 @property(nonatomic,copy)NSString *time;
 @property(nonatomic,copy)NSString *head;
 @property(nonatomic,assign)int msgCount;
+@property(nonatomic,assign)int type;
 
 @end

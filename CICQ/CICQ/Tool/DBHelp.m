@@ -8,6 +8,7 @@
 
 #import "DBHelp.h"
 #import "FMDatabase.h"
+#import "NewMassageModel.h"
 
 
 static BOOL isOpen = NO;
@@ -30,9 +31,10 @@ static BOOL isOpen = NO;
 }
 
 
-+(BOOL)openDataBase:(NSString*)path
++(BOOL)openDataBase
 {
-    dataBase = [[FMDatabase alloc]initWithPath:path];
+    NSString *dbPath = [DBHelp documentPath];
+    dataBase = [[FMDatabase alloc]initWithPath:dbPath];
     isOpen = [dataBase open];
     return isOpen;
 }
@@ -58,6 +60,13 @@ static BOOL isOpen = NO;
     return result;
 }
 
+#pragma mark 插入聊天数据
++(BOOL)addNewMassageModel:(NewMassageModel *)model
+{
+    NSString *insertSql = [NSString stringWithFormat:@"insert into massageList (user_Name,content,time,head,msg_count,type) values ('%@','%@','%@','%@',%d,%d)",model.userName,model.content,model.time,model.head,model.msgCount,model.type];
+    return [self insertDataBase:insertSql];
+}
+
 
 +(BOOL)closeDataBase
 {
@@ -68,6 +77,17 @@ static BOOL isOpen = NO;
 }
 
 
++(NSString *)documentPath
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    BOOL tag = [manager fileExistsAtPath:path isDirectory:NULL];
+    if (!tag) {
+        [manager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
+    }
+    NSString *dbPath = [path stringByAppendingPathComponent:@"userData.db"];
+    return dbPath;
+}
 
 
 @end

@@ -35,9 +35,6 @@
     _contactsNavigation.title                    = @"联系人";
     _massagesNavigation.title                    = @"消息";
     _dynamicNavigation.title                     = @"动态";
-    
-    
-    
 
     
     self.viewControllers = @[_massagesNavigation,_contactsNavigation,_dynamicNavigation];
@@ -48,7 +45,7 @@
 #pragma mark 更新消息数量
 -(void)updateMassageCount:(NSNotification*)notification{
     NSString *count = (NSString *)notification.object;
-        _massagesNavigation.tabBarItem.badgeValue = count;
+    _massagesNavigation.tabBarItem.badgeValue = count;
 }
 
 

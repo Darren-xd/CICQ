@@ -97,6 +97,7 @@
 		9BB704F51C94230A0000DD07 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704E41C94230A0000DD07 /* UIImageView+WebCache.m */; };
 		9BB704F61C94230A0000DD07 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB704E61C94230A0000DD07 /* UIView+WebCacheOperation.m */; };
 		9BB704F81C9423A50000DD07 /* 12322.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BB704F71C9423A50000DD07 /* 12322.png */; };
+		9BDA03C71C97AF0300C95FB7 /* FirstStartApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BDA03C61C97AF0300C95FB7 /* FirstStartApp.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +284,8 @@
 		9BB704E51C94230A0000DD07 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		9BB704E61C94230A0000DD07 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		9BB704F71C9423A50000DD07 /* 12322.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12322.png; sourceTree = "<group>"; };
+		9BDA03C51C97AF0300C95FB7 /* FirstStartApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstStartApp.h; sourceTree = "<group>"; };
+		9BDA03C61C97AF0300C95FB7 /* FirstStartApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstStartApp.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +472,8 @@
 			children = (
 				9B6BCD2D1C96AC2D00A53707 /* DBHelp.h */,
 				9B6BCD2E1C96AC2D00A53707 /* DBHelp.m */,
+				9BDA03C51C97AF0300C95FB7 /* FirstStartApp.h */,
+				9BDA03C61C97AF0300C95FB7 /* FirstStartApp.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -947,6 +952,7 @@
 				9BB704781C928CBC0000DD07 /* AFSecurityPolicy.m in Sources */,
 				9B6BCD371C97053F00A53707 /* CICQCategory.m in Sources */,
 				9B19AF0B1C91654800056763 /* NewMassageModel.m in Sources */,
+				9BDA03C71C97AF0300C95FB7 /* FirstStartApp.m in Sources */,
 				9BB704771C928CBC0000DD07 /* AFNetworkReachabilityManager.m in Sources */,
 				9BB704E71C94230A0000DD07 /* MKAnnotationView+WebCache.m in Sources */,
 				9B6BCCAB1C95326B00A53707 /* FMDatabasePool.m in Sources */,

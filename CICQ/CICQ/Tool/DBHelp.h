@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FMDatabase.h"
+#import "NewMassageModel.h"
 
 static FMDatabase *dataBase = nil;
 
@@ -15,13 +16,15 @@ static FMDatabase *dataBase = nil;
 
 
 
-+(BOOL)openDataBase:(NSString*)path;
++(BOOL)openDataBase;
 
 +(BOOL)createTableHelp:(NSString*)sql;
 
 +(BOOL)insertDataBase:(NSString*)sql;
 
 +(FMResultSet*)selectDataBase:(NSString *)sql;
+
++(BOOL)addNewMassageModel:(NewMassageModel *)model;
 
 +(BOOL)closeDataBase;
 
