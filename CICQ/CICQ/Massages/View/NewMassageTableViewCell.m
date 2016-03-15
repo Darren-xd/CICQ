@@ -21,7 +21,11 @@
 -(void)setData:(NewMassageModel *)chatModel
 {
     _userNameLabel.text = chatModel.userName;
-    _massageLabel.text = chatModel.content;
+    if (chatModel.type == 1) {
+        _massageLabel.text = [NSString stringWithFormat:@"☎️%@",chatModel.content];
+    }else{
+        _massageLabel.text = chatModel.content;
+    }
     _timeLabel.text = chatModel.time;
     _headImageView.image = [UIImage imageNamed:chatModel.head];
 }
